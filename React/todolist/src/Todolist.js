@@ -10,11 +10,11 @@ class Todolist extends Component {
     render() {
         return (
             <Fragment>
-                <div><input value={this.state.inputValue} onChange={this.handleInputChange.bind(this)} /><button>提交</button></div>
+                <div><input value={this.state.inputValue} onChange={this.handleInputChange.bind(this)} /><button onClick={this.handleBtnClick.bind(this)}>提交</button></div>
                 <ul>
                     {
-                        this.state.list.map((item,index)=>{
-                            return <div>{item}</div>
+                        this.state.list.map((item, index) => {
+                            return <li key={index} onClick={this.handleItemDelete.bind(this, index)}>{item}</li>
                         })
                     }
                 </ul>
@@ -23,8 +23,21 @@ class Todolist extends Component {
     }
     handleInputChange(e) {
         this.setState({
-            inputValue : e.target.value
-        }) 
+            inputValue: e.target.value
+        })
+    }
+    handleBtnClick() {
+        this.setState({
+            list: [...this.state.list, this.state.inputValue],
+            inputValue: ''
+        })
+    }
+    handleItemDelete(index) {
+        const list = [...this.state.list]
+        list.splice(index, 1)
+        this.setState({
+            list: list
+        })
     }
 }
 export default Todolist
