@@ -12,14 +12,19 @@ class Todolist extends Component {
             <Fragment>
                 <div><input value={this.state.inputValue} onChange={this.handleInputChange.bind(this)} /><button>提交</button></div>
                 <ul>
-                    <li>学英语</li>
-                    <li>Learning React</li>
+                    {
+                        this.state.list.map((item,index)=>{
+                            return <div>{item}</div>
+                        })
+                    }
                 </ul>
             </Fragment>
         )
     }
     handleInputChange(e) {
-        this.state.inputValue = e.target.value
+        this.setState({
+            inputValue : e.target.value
+        }) 
     }
 }
 export default Todolist
